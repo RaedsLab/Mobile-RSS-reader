@@ -1,5 +1,5 @@
 /// SET the RSS link here 
-var url = "http://www.wpbeginner.com/feed/";
+var url = "http://techcrunch.com/feed/";
 
 var content = new Array();
 
@@ -45,7 +45,7 @@ function callback(response) {
          <img src = \"" + imgLink + "\" >\n\
          <h2>" + response.entries[i].title + "</h2>\n\
          <p>" + response.entries[i].contentSnippet + "</p>" +
-                '<a onclick="articleClicked(' + i + ')" id="art_' + i + '" href="#articlePage" class = "ui-btn ui-btn-icon-notext ui-icon-gear art">\n\
+                '<a onclick="articleClicked(' + i + ')" id="art_' + i + '" href="#articlePage" class = "ui-btn ui-btn-icon-notext ui-icon-action art">\n\
                  < /a> < /li>';
     }
     $("#articles").append(article).listview('refresh');
