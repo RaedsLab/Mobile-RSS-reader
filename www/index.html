@@ -9,8 +9,7 @@
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     </head>
     <body>
-        <div data-role="page">
-
+        <div data-role="page" id="mainPage">
             <div data-role="header">
                 <h1 id="title">Welcome To RSS</h1>
                 <div data-role="navbar">
@@ -30,6 +29,26 @@
                     </ul>
                 </div>
                 <hr>
+            </div>
+
+            <div data-role="footer">
+                <h2>Credit <b>Raed Chammem</b></h2>
+            </div>
+        </div>
+        <!--END OF MAIN PAGE  -->
+        <div data-role="page" id="articlePage">
+
+            <div data-role="header">
+                <h1 id="title">Welcome To RSS</h1>
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#mainPage" data-icon="back" id="back">Back</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="main" class="ui-content">
+                <h1 id="articleTitle"></h1>
+                <div  id="articleContent"></div>
             </div>
 
             <div data-role="footer">

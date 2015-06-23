@@ -1,5 +1,9 @@
 /// SET the RSS link here 
-var url = "http://www.raed.tn/blog/feed/";
+var url = "http://www.wpbeginner.com/feed/";
+
+var content = new Array();
+
+
 function parseRSS(url, callback) {
     $.ajax({
         url: document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
@@ -11,6 +15,7 @@ function parseRSS(url, callback) {
         }
     });
 }
+
 
 function callback(response) {
     var article = "";
@@ -25,22 +30,32 @@ function callback(response) {
     //GO THROUGH THE ARTICLES
     for (var i = 0, max = response.entries.length; i < max; i++) {
         featImage = response.entries[i].content;
-
         srcimg = $(featImage).find('img');
+
+        content[i] = response.entries[i];
 
         if (srcimg.length > 0) {
             imgLink = srcimg[0].src;
         } else {
             imgLink = "https://placeholdit.imgix.net/~text?txtsize=11&txt=120%C3%97120&w=120&h=120";
         }
-        
-        article += "<li class=\"ui-li-has-alt ui-li-has-thumb \">" +
+
+        article += "<li  class=\"ui-li-has-alt ui-li-has-thumb \">" +
                 "<a href=\"" + response.entries[i].link + "\" target=\"_blank\" class=\"ui-btn\">\n\
          <img src = \"" + imgLink + "\" >\n\
          <h2>" + response.entries[i].title + "</h2>\n\
-         <p>" + response.entries[i].contentSnippet + "</p></a></li>";
+         <p>" + response.entries[i].contentSnippet + "</p>" +
+                '<a onclick="articleClicked(' + i + ')" id="art_' + i + '" href="#articlePage" class = "ui-btn ui-btn-icon-notext ui-icon-gear art">\n\
+                 < /a> < /li>';
     }
     $("#articles").append(article).listview('refresh');
+}
+
+function articleClicked(i) {
+    
+    $("#articleTitle").html(content[i].title);
+
+    $("#articleContent").html(content[i].content);
 }
 
 $(document).ready(function () {
