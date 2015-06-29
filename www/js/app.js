@@ -1,6 +1,7 @@
 /// SET the RSS link here 
-var url = "http://techcrunch.com/feed/";
-
+var url = "https://news.microsoft.com/feed/";
+var loaded = false; // to prevent re-redering the list
+//ALL your articles will go here
 var content = new Array();
 
 
@@ -11,6 +12,7 @@ function parseRSS(url, callback) {
         success: function (data) {
             if (callback) {
                 callback(data.responseData.feed);
+                loaded = true;
             }
         }
     });
@@ -31,7 +33,6 @@ function callback(response) {
     for (var i = 0, max = response.entries.length; i < max; i++) {
         featImage = response.entries[i].content;
         srcimg = $(featImage).find('img');
-
         content[i] = response.entries[i];
 
         if (srcimg.length > 0) {
@@ -52,20 +53,25 @@ function callback(response) {
 }
 
 function articleClicked(i) {
-    
+
     $("#articleTitle").html(content[i].title);
 
-    $("#articleContent").html(content[i].content);
+    $("#articleContent").html(content[i].content).trigger('create');
+    ;
 }
 
-$(document).ready(function () {
+$(document).on('pageinit', function () { //jQ Mobile replacement for $(document).ready
     console.log("ready!");
+    if (loaded) {
+        return;
+    }
     parseRSS(url, callback);
     $("li").each(function (index) {
         console.log(index + ": " + $(this).text());
         $(this).enhanceWithin();
     });
 });
+
 
 $("#refresh").click(function () {
     $("#articles").html("");
